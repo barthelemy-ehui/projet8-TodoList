@@ -26,6 +26,11 @@ class User implements UserInterface
      * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
      */
     private $username;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="User")
+     */
+    private $tasks;
 
     /**
      * @ORM\Column(type="string", length=64)
