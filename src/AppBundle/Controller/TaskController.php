@@ -83,8 +83,8 @@ class TaskController extends Controller
      */
     public function deleteTaskAction(Task $task)
     {
-        if($task->getUser() !== $this->getUser()) {
-            $this->addFlash('error', 'Vous n\'êtes pas l\'auteur de cette tâche');
+        if($task->getUser() !== $this->getUser() || $this->getUser() == null) {
+            $this->addFlash('error', 'Vous n\'êtes pas autorisé à supprimer cette tâche.');
             return $this->redirectToRoute('task_list');
         }
         
