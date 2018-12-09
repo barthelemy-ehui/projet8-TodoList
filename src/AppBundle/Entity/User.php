@@ -95,10 +95,10 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return [
-            self::ROLE_USER,
-            self::ROLE_ADMIN,
-        ];
+        $roles[] = $this->getRole();
+        $roles[] = self::ROLE_USER;
+        
+        return $roles;
     }
 
     public function eraseCredentials()
