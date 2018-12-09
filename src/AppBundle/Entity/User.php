@@ -14,6 +14,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User implements UserInterface
 {
+    const ROLE_USER = 'ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -43,7 +46,13 @@ class User implements UserInterface
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
      */
     private $email;
-
+    
+    /**
+     * @ORM\Column(type="string", length=60)
+     * @Assert\NotBlank(message="Vous devez choisir un role")
+     */
+    private $role;
+    
     public function getId()
     {
         return $this->id;
@@ -86,10 +95,29 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return [
+            self::ROLE_USER,
+            self::ROLE_ADMIN,
+        ];
     }
 
     public function eraseCredentials()
     {
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+    
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 }
