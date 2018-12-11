@@ -8,22 +8,14 @@ https://openclassrooms.com/projects/ameliorer-un-projet-existant-1
 #Symfony version 3.4
 All bundles used in this project are available inside composer.json
 
-#Docker
+#Docker Installation
+
+Install docker with this link
+https://docs.docker.com/install/
+
+then start the project with this command
 
  - docker-compose up -d to start the project
-
-#Authentification
-
-Login and logout user is base on various configuration file in the project.
-Those files are:
- - User entity under the folder app/src/AppBundle/Entity
- - SecurityController under the folder app/src/AppBundle/Controller
- - security.yml under the folder app/config
-
-security.yml has "providers" in which we tell to have access to user entity and the "username" as the login.
-In the "main" part of security, there is the "form_login" which allow forwarding the login/logout toward SecurityController.
-
-
 
 During authentification, Symfony call getRoles form user entity which is used to check the "access_control roles" under security file.
 
@@ -54,5 +46,5 @@ Once the new file is created, update to add the database name, database user and
 The performance is measured with blackfire. 
 The following is the command used for checking the performance
 
- - docker exec -it -e BLACKFIRE_CLIENT_ID -e BLACKFIRE_CLIENT_TOKEN [containerId] blackfire curl http://172.19.0.3//web/app.php/users
+ - docker exec -it -e BLACKFIRE_CLIENT_ID -e BLACKFIRE_CLIENT_TOKEN [containerId] blackfire curl http://[CONTAINERIP]//web/app.php/users
  
