@@ -48,3 +48,8 @@ The following is the command used for checking the performance
 
  - docker exec -it -e BLACKFIRE_CLIENT_ID -e BLACKFIRE_CLIENT_TOKEN [containerId] blackfire curl http://[CONTAINERIP]//web/app.php/users
  
+ #PHPUNIT
+ 
+ See the code coverage inside 
+  - ./coverage folder
+ 
