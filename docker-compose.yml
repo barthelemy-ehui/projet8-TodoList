@@ -1,0 +1,30 @@
+version: '2'
+services:
+  php:
+    build: .
+    ports:
+    - "8080:80"
+    volumes:
+    - ./:/var/www/html/:rw,cached
+    - ./docker/apache2/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+  blackfire:
+    image: blackfire/blackfire
+    environment:
+    # Exposes the host BLACKFIRE_SERVER_ID and TOKEN environment variables.
+    - BLACKFIRE_SERVER_ID
+    - BLACKFIRE_SERVER_TOKEN
+    # You can also use global environment credentials :
+    # BLACKFIRE_SERVER_ID: SERVER-ID
+    # BLACKFIRE_SERVER_TOKEN: SERVER-TOKEN
+
+  mariadb:
+    image: mariadb:10.1
+    # container_name: bilemo-mariadb
+    working_dir: /application
+    environment:
+    - MYSQL_ROOT_PASSWORD=123456
+    - MYSQL_DATABASE=todo
+    - MYSQL_USER=bart
+    - MYSQL_PASSWORD=awaler951010
+    ports:
+    - "8003:3306"
