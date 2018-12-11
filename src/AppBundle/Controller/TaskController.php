@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
+use AppBundle\Entity\User;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -83,7 +84,7 @@ class TaskController extends Controller
      */
     public function deleteTaskAction(Task $task)
     {
-        if($task->getUser() !== $this->getUser() || $this->getUser() == null) {
+        if($this->avoidDeletingTask($task)) {
             $this->addFlash('error', 'Vous n\'êtes pas autorisé à supprimer cette tâche.');
             return $this->redirectToRoute('task_list');
         }
@@ -95,5 +96,15 @@ class TaskController extends Controller
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 
         return $this->redirectToRoute('task_list');
+    }
+    
+    
+    private function avoidDeletingTask($task) {
+        
+        $isUserDifferentFromTask = $task->getUser() !== $this->getUser();
+        $isUserDifferentFromAdmin = !$this->isGranted(User::ROLE_ADMIN);
+        $isUserAnonym = $this->getUser() === null;
+        
+        return ($isUserDifferentFromTask && $isUserDifferentFromAdmin) || $isUserAnonym;
     }
 }
