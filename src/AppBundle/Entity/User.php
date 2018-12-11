@@ -30,10 +30,6 @@ class User implements UserInterface
      */
     private $username;
     
-    /**
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="User")
-     */
-    private $tasks;
 
     /**
      * @ORM\Column(type="string", length=64)
